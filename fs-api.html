@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html> 
+	<head>
+		<title>FourSquare API</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style-one.css"/>
+		<script src="js/jQuery.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="js/script-one.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSHPWjouiZzdAI_EhWkuuLsFMEGTgyYWE&callback=initMap"async defer></script>
+	</head>
+	
+	<body ng-app="myApp" ng-controller="masterCtrl">
+	
+		<!--   -->
+		<div class="container-fluid blacky">
+		
+			<div class="row whitey" style="border-bottom: 1px solid black;">
+				<div class="col-md-12">
+					<h1 class="text-center header-text" onclick="sayHello()">FourSquare!</h1>
+				</div>
+				<!--<div class="col-md-8">
+					<nav>
+						<ul class="nav-bar">
+							<li><a href="home.html">Home</a></li>
+							<li><a href="fs-api.html">FourSquare API</a></li>
+							<li><a href="nyt-api.html">NY Times API</a></li>
+							<li><a href="fnt-api.html">Nutritionix API</a></li>
+							<li><a href="scl-api.html">Social API</a></li>
+							<li><button id="info-btn" onclick="webInfo()">Web Info</button></li>
+						</ul>
+					</nav>
+				</div>-->
+			</div><br>
+
+			<div class="row">
+
+				<div class="col-md-4" style="">
+					<div class="left-box">
+						<div class="place-search whitey">
+					
+							<h1 style="margin-top: 0px; padding-top: 3px;" class="text-center">Search Places</h1>
+							
+							<div id="any-search">
+								<h4 class="text-center">Search any location.</h4>
+								<form id="form"><center>
+									<input type="text" id="street" placeholder="Street">
+									<input type="text" id="city" placeholder="City"><br>
+									<input id="submit-btn" type="button" onclick="" value="Submit" ng-click="searchLocation()">
+									<input id="question" type="button" onclick="answer()" value="?">
+									<br><b><p id="search-text">{{searchText}}</p></b>
+								</form>
+							</div>
+						
+							<div id="fq-search" class="whitey">
+								<h4 class="text-center">Search FourSquare.</h4>
+								<form id="form"><center>
+									<input type="text" id="query" placeholder="Search Query">
+									<input type="text" id="query-city" placeholder="Search City"><br>
+									<input type="text" id="amount" placeholder="Amount of Results" style="width: 125px;">
+									<input id="submit-btn" type="button" onclick="" value="Submit" ng-click="loadPlaces()">
+									<input id="question" type="button" onclick="fqAnswer()" value="?" ng-click="checkPlaces()">
+									<p style="padding: 15px;" id="fq-text"></p>
+								</form>
+							</div>
+							
+						</div>
+						
+					</div>
+					
+					<div class="whitey" style="border: 1px solid black;">
+						<h1 class="text-center">Four Square Places</h1>
+						<!--<center>
+						<input type="text" id="search-filter" placeholder="Search Filter"/>
+						<button type="button" id="filter-btn" ng-click="filterResults()">Filter</button>
+						</center>-->
+						<ul class="place-list">
+							<li  class="fq-items" ng-repeat="place in places" ng-click="showMarker(this)">
+								<div>
+									<b><h4>{{place.placeName}}</h4></b>
+									<p>
+										<span>{{place.placeAddress}}</span> 
+										<br> 
+										<span>{{place.placeCity}}</span>, <span>{{place.placeState}}</span>, <span>{{place.placeZip}}</span>
+										<br>
+										<span>{{place.placeCountry}}</span>
+										<p><span>Phone: {{place.placePhone}}</span></p>
+										<span>Status: {{place.placeStatus}}</span>, <span>Specials: {{place.placeSpecials}}</span>											
+									</p>
+								</div>
+							</li>
+						</ul>
+					</div><br>
+					
+					<div class="wikipedia-container border whitey" style="margin-bottom: 20px; border: 1px solid black;">
+						<h2 class="text-center" id="wikipedia-header">Relevant Wikipedia Links</h2>
+						<ul class="text-center" id="wikipedia-links">Type in an address above and find relevant Wikipedia articles here!</ul>
+					</div>
+				</div>
+
+				<div class="main-box col-md-8">
+					
+					<div class="whitey" style="padding10px; border: 1px solid black;">
+						<h2 class="text-center">Google Maps</h2>
+						<div id="map-div" class="map-div">
+					
+						</div>
+					</div>
+					<br>
+					<div class="whitey" style="padding10px; border: 1px solid black;">
+						<h2 class="text-center">Google StreetView</h2>
+						<div id="street-view">
+							<center><img alt="Google Image" id="street-img" class="street-img" src={{imgURL}}/></center>
+						</div>
+					</div>
+
+				</div>
+				
+			</div>
+		
+		</div>
+		
+	</body>
+	
+</html>

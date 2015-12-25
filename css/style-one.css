@@ -1,0 +1,167 @@
+body {
+	width: 100%;
+	margin: auto;
+}
+
+input {
+	margin-bottom: 5px;
+	
+}
+
+.info-img {
+
+}
+
+.text-center {
+	text-align: center;
+}
+
+.header-text {
+	margin: 2px;
+	-webkit-transition: transition: 0.4s;
+	transition: 0.4s;
+}
+
+.header-text:hover {
+	opacity: 0.3;
+	transition: 0.4s;
+}
+
+.nav-bar {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	
+}
+
+.whitey {
+	background-color: white;
+}
+
+.blacky {
+	background-color: black;
+}
+
+.nav-bar li {
+	display: inline-block;
+	padding: 10px 50px 10px 50px;
+}
+
+.left-box {
+	border: 1px solid black;
+	width: 100%;
+}
+
+#form1, #form2 {
+	padding-top: 3%;
+}
+
+ .srh-txt {
+	 padding-top: 15px;
+	 margin: 0px;
+ }
+
+.place-list {
+	margin-top: 0px;
+    margin-bottom: -10px;
+    padding: 5px;
+    height: 46vh;
+    overflow: scroll;
+}
+
+.fq-items, .food-items {
+	background-color: gray;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 95%;
+    display: block;
+    margin: auto;
+    margin-bottom: 5px;
+    text-align: center;
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+}
+
+.fq-items:hover, .food-items:hover {
+	opacity: 0.7;
+	transition: 0.3s;
+}
+#wikipedia-links {
+	margin: 0px;
+	padding: 5px;
+}
+
+#wikipedia-links li {
+	background-color: #bfbfbf;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 95%;
+    display: block;
+    margin: auto;
+    margin-bottom: 5px;
+    text-align: center;
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+}
+
+#wikipedia-links li:hover {
+	opacity: 0.7;
+	transition: 0.3s;
+}
+
+.right-box {
+	border: 1px solid black;
+}
+
+.main-box {
+	
+}
+
+.map-div {
+	width: 100%;
+	height: 76vh;
+}
+#street-view {
+	width: 100%;
+	margin: auto;
+}
+.street-img {
+	width: 100%;
+	max-height: 600px;
+}
+
+.nytimes-container {
+	padding: 0 10px 0 10px;
+	
+}
+
+#nytimes-header {
+	height: 48%;
+}
+
+.news-div {
+	
+}
+
+.news-list {
+	
+}
+
+.article-list {
+    margin: 0;
+    padding: 0;	
+	white-space: wrap;
+}
+
+.article {
+    list-style-type: none;
+    padding:10px;
+    border-top: 1px solid #CCC;
+}
+.article:first-child {
+    border-top:none;
+}
+
+.text-shadow {
+	text-shadow: 2px 2px 5px gray;
+}
