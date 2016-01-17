@@ -42,7 +42,7 @@
 					
 							<h1 style="margin-top: 0px; padding-top: 3px;" class="text-center">Search Places</h1>
 							
-							<div id="any-search">
+							<!--<div id="any-search">
 								<h4 class="text-center">Search any location.</h4>
 								<form id="form"><center>
 									<input type="text" id="street" placeholder="Street">
@@ -51,14 +51,14 @@
 									<input id="question" type="button" onclick="answer()" value="?">
 									<br><b><p id="search-text">{{searchText}}</p></b>
 								</form>
-							</div>
+							</div>-->
 						
 							<div id="fq-search" class="whitey">
 								<h4 class="text-center">Search FourSquare.</h4>
 								<form id="form"><center>
-									<input type="text" id="query" placeholder="Search Query">
+									<input type="text" id="query" placeholder="Search Query"><br>
 									<input type="text" id="query-city" placeholder="Search City"><br>
-									<input type="text" id="amount" placeholder="Amount of Results" style="width: 125px;">
+									<input type="text" id="amount" placeholder="Amount of Results" style="width: 125px;"><br>
 									<input id="submit-btn" type="button" onclick="" value="Submit" ng-click="loadPlaces()">
 									<input id="question" type="button" onclick="fqAnswer()" value="?" ng-click="checkPlaces()">
 									<p style="padding: 15px;" id="fq-text"></p>
