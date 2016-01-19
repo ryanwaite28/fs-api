@@ -62,11 +62,13 @@ input {
  }
 
 .place-list {
-	margin-top: 0px;
+    margin-top: 0px;
     margin-bottom: -10px;
     padding: 5px;
     height: 85%;
     overflow-y: scroll;
+    width: 95%;
+    margin: auto;
 }
 
 .fq-items, .food-items {
