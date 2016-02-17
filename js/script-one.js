@@ -148,7 +148,7 @@ App.controller('masterCtrl', function($scope) {
 		$('#street-img').src = streetViewUrl;
 		$scope.imgURL = streetViewUrl;
 		
-		var apiURL = 'https://api.foursquare.com/v2/venues/search?client_id=N1IAMKZUIK1AUHKRFGFBKPQ2YKDSBAKS4NTER5SYZN5CROR1&client_secret=4MKLXVLU2FGZQVRMAEDC15P0TFJGSCY3ZUYUZ0KHQQQLQ5R3&v=20130815%20&limit=' + amount + '&near=' + City + '&query=' + query + '';
+		var apiURL = 'https://api.foursquare.com/v2/venues/search?client_id=N1IAMKZUIK1AUHKRFGFBKPQ2YKDSBAKS4NTER5SYZN5CROR1&client_secret=4MKLXVLU2FGZQVRMAEDC15P0TFJGSCY3ZUYUZ0KHQQQLQ5R3&v=20130815%20&limit=50&near=' + City + '&query=' + query + '';
 		console.log(apiURL);
 		
 		var infoWindow = new google.maps.InfoWindow();
@@ -407,34 +407,72 @@ App.controller('masterCtrl', function($scope) {
 			$('#fq-text').text('');
 		}, 3000);
 	}
-
 	
+	/* --- View Changer --- */
+	
+	$scope.mapSize = 8;
+
+	var searchIcon = $('#search-icon');
+	var mapIcon = $('#map-icon');
+	
+	var fqBox = $('#fq-search');
+	var resultsBox = $('#results-box');
+	
+	var mapDiv = $('#div-map');
+	
+	$scope.mapView = function() {
+		$('.main-box').css({'height': '100vh', 'margin-top': '-10px'});
+		fqBox.css({'display': 'none'});
+		resultsBox.css({'display': 'none'});
+		$scope.mapSize = 12;
+	}
+	
+	$scope.searchView = function() {
+		$('.main-box').css({'height': '0vh', 'margin-top': '0px'});
+		fqBox.css({'display': 'block'});
+		resultsBox.css({'display': 'block'});
+		$scope.mapSize = 8;
+	}
+	
+	/*searchIcon.click(function(){
+		mapDiv.css({'height': '0vh'});
+		fqBox.css({'display': 'block'});
+		resultsBox.css({'display': 'block'});
+		$scope.mapSize = 0;
+	})
+	
+	mapIcon.click(function(){
+		mapDiv.css({'height': '100vh'});
+		fqBox.css({'display': 'none'});
+		resultsBox.css({'display': 'none'});
+		$scope.mapSize = 12;
+	})*/
 	
 });
 
-$(document).ready(function() {
+/*$(document).ready(function() {
 	
 	var searchIcon = $('#search-icon');
 	var mapIcon = $('#map-icon');
 	
-	var leftBox = $('#left-box');
+	var fqBox = $('#fq-search');
 	var resultsBox = $('#results-box');
 	
 	var mapDiv = $('#div-map');
 	
 	searchIcon.click(function(){
 		mapDiv.css({'height': '0vh'});
-		leftBox.css({'display': 'block'});
+		fqBox.css({'display': 'block'});
 		resultsBox.css({'display': 'block'});
 	})
 	
 	mapIcon.click(function(){
 		mapDiv.css({'height': '100vh'});
-		leftBox.css({'display': 'none'});
+		fqBox.css({'display': 'none'});
 		resultsBox.css({'display': 'none'});
 	})
 	
-});
+});*/
  
 function answer() {
 	alert("You can also search other Countries as well! Just put the city and then region/country! Also, you don't have to submit a street address. Submit a city and state (or other location in the world) to mark the map and get news about it, as well as a twitter feed!");
