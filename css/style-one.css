@@ -17,9 +17,11 @@ input {
 }
 
 .header-text {
-	margin: 2px;
+	line-height: 55px;
+	vertical-align: middle;
 	-webkit-transition: transition: 0.4s;
 	transition: 0.4s;
+	margin: 0px;
 }
 
 .header-text:hover {
@@ -62,12 +64,12 @@ input {
  }
 
 .place-list {
-    margin-top: 0px;
+    margin-top: 5px;
     margin-bottom: -10px;
     padding: 5px;
-    height: 85%;
+    height: 55vh;
     overflow-y: scroll;
-    width: 95%;
+    width: 100%;
     margin: auto;
 }
 
@@ -166,4 +168,91 @@ input {
 
 .text-shadow {
 	text-shadow: 2px 2px 5px gray;
+}
+
+#results-box {
+	height: 65vh;
+}
+
+#search-icon, #map-icon {
+	display: none;
+	visibility: hidden;
+	height: 0px;
+	width: 0px;
+}
+
+#m-text {
+	display: none;
+}
+
+.main-box  {
+	
+}
+
+/*  */
+
+@media (max-height: 992px) {
+	
+	.wikipedia-container,
+	.google-img, #g-text {
+		display: none;
+	}
+	
+	.div-map  {
+		height: 100vh;
+	}
+	.map-div {
+		height: 100%;
+	}
+	
+	#results-box {
+		height: 90vh;
+	}
+	
+	#results-box h1, #left-box h1{
+		font-size: 22px;
+		margin: 0px;
+		padding: 10px;
+		border-bottom: 1px solid black;
+	}
+	#m-text {
+		display: block;
+		padding: 10px;
+		margin: 0px;
+	}
+	
+	#map-icon {
+		display: block;
+		visibility: visible;
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		height: 55px;
+		width: 55px;
+		padding: 8px;
+		border-left: 1px solid black;
+	}
+	
+	#search-icon {
+		display: block;
+		visibility: visible;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		height: 55px;
+		width: 55px;
+		border-right: 1px solid black;
+	}
+	
+}
+
+@media (max-height: 600px) {
+
+	.header-text {
+		font-size: 25px;
+	}
+	.main-box {
+		margin-top: -30px;
+	}
+
 }
