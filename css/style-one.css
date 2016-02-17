@@ -1,6 +1,8 @@
 body {
-	width: 100%;
+	max-width: 99.99%;
+	max-height: 99.99vh;
 	margin: auto;
+	background-color: black;
 }
 
 input {
@@ -54,8 +56,10 @@ input {
 	width: 100%;
 }
 
-#form1, #form2 {
-	padding-top: 3%;
+#form {
+	padding-top: 6px;
+	width: 90%;
+	margin: auto;
 }
 
  .srh-txt {
@@ -67,7 +71,7 @@ input {
     margin-top: 5px;
     margin-bottom: -10px;
     padding: 5px;
-    height: 43vh;
+    height: 60vh;
     overflow-y: scroll;
     width: 100%;
     margin: auto;
@@ -199,14 +203,14 @@ input {
 	}
 	
 	.div-map  {
-		height: 90vh;
+		height: 86vh;
 	}
 	.map-div {
 		height: 100%;
 	}
 	
 	#results-box {
-		height: 65vh;
+		height: 86vh;
 	}
 	
 	#results-box h1, #left-box h1{
@@ -246,13 +250,27 @@ input {
 	
 }
 
-@media (max-height: 600px) {
+@media (max-height: 675px) {
 
 	.header-text {
 		font-size: 25px;
 	}
 	.main-box {
-		margin-top: -30px;
+		margin-top: -40px;
+	}
+	
+	#query, #query-city, #amount {
+		width: 120px;
+	}
+	#results-box {
+		margin-top: -21px;
+		width: 100%;
+	}
+	#left-div, .main-box {
+		padding: 0px;
+	}
+	#d-btn {
+		
 	}
 
 }
