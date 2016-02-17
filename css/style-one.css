@@ -67,7 +67,7 @@ input {
     margin-top: 5px;
     margin-bottom: -10px;
     padding: 5px;
-    height: 55vh;
+    height: 43vh;
     overflow-y: scroll;
     width: 100%;
     margin: auto;
@@ -171,7 +171,7 @@ input {
 }
 
 #results-box {
-	height: 65vh;
+	/* height: 65vh; */
 }
 
 #search-icon, #map-icon {
@@ -199,14 +199,14 @@ input {
 	}
 	
 	.div-map  {
-		height: 100vh;
+		height: 90vh;
 	}
 	.map-div {
 		height: 100%;
 	}
 	
 	#results-box {
-		height: 90vh;
+		height: 65vh;
 	}
 	
 	#results-box h1, #left-box h1{
