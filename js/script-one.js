@@ -133,8 +133,7 @@ App.controller('masterCtrl', function($scope) {
 			return;
 		};
 		if(amount == '') {
-			alert('Value was blank/empty. Please submit a number for this input field.');
-			return;
+			amount = 50;
 		};
 		if(amount == 0) {
 			alert('Value was 0. Please use a number that is greater than 0, less than 51.');
@@ -331,7 +330,9 @@ App.controller('masterCtrl', function($scope) {
 
             $scope.mapMarkers.push({
                 marker: marker,
-                content: infoBox
+                content: infoBox,
+				title: thisName,
+				id: ID,
             });
 
             google.maps.event.addListener(marker, 'click', function() {
@@ -373,12 +374,11 @@ App.controller('masterCtrl', function($scope) {
         if (!input) {
             return;
         } else {
-            $scope.places = [];
+            $scope.mapMarkers = [];
 			
             for (var i = 0; i < list.length; i++) {
-                if (list[i].placeName.toLowerCase().indexOf(input) != -1) {
+                if (markers[i].title.toLowerCase().indexOf(input) != -1) {
                     markers[i].marker.setMap(map);
-                    $scope.places.push(list[i]);
 					
                 } else { 
 					markers[i].marker.setMap(null);
@@ -386,10 +386,14 @@ App.controller('masterCtrl', function($scope) {
                 }
 	
             }
+			
+			
 
-        }console.log(markers);
-		
-		
+        }
+		console.log(markers);
+		$scope.$apply(function () {
+				console.log('Filter');
+			});
 	}
 	
 	
@@ -405,6 +409,30 @@ App.controller('masterCtrl', function($scope) {
 	}
 
 	
+	
+});
+
+$(document).ready(function() {
+	
+	var searchIcon = $('#search-icon');
+	var mapIcon = $('#map-icon');
+	
+	var leftBox = $('#left-box');
+	var resultsBox = $('#results-box');
+	
+	var mapDiv = $('#div-map');
+	
+	searchIcon.click(function(){
+		mapDiv.css({'height': '0vh'});
+		leftBox.css({'display': 'block'});
+		resultsBox.css({'display': 'block'});
+	})
+	
+	mapIcon.click(function(){
+		mapDiv.css({'height': '100vh'});
+		leftBox.css({'display': 'none'});
+		resultsBox.css({'display': 'none'});
+	})
 	
 });
  
