@@ -21,14 +21,14 @@ input {
 .header-text {
 	line-height: 55px;
 	vertical-align: middle;
-	-webkit-transition: transition: 0.4s;
-	transition: 0.4s;
+	-webkit-transition: transition: 0.3s;
+	transition: 0.34s;
 	margin: 0px;
 }
 
 .header-text:hover {
 	opacity: 0.3;
-	transition: 0.4s;
+	transition: 0.3s;
 }
 
 .nav-bar {
