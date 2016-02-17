@@ -20,12 +20,30 @@
 		<div class="container-fluid blacky">
 		
 			<div class="row whitey" style="border-bottom: 1px solid black;">
-				<div class="col-md-12">
+				<div style="border-bottom: 1px solid black;background-image: linear-gradient(to bottom, #ffffff,#cccccc);" class="col-md-12">
 					<h1 class="text-center header-text" onclick=""><b>FourSquare!</b></h1>
 				</div>
 				
-				<a href=""><img id="search-icon" src="http://i.imgur.com/Y1ST6Kv.png"/></a>
-				<a href=""><img id="map-icon" src="http://i.imgur.com/IIfm7Gr.png"/></a>
+				<div id="fq-search" class="whitey col-md-12" style="padding: 0px;">
+								<div class="col-md-4" style="padding: 0px;">
+								<h4 class="text-center"><b>Search Places</b></h4>
+								</div>
+								<div class="col-md 8" style="">
+								<form id="form"><center>
+									<input type="text" id="query" placeholder="Search Query">
+									<input type="text" id="query-city" placeholder="Search City">
+									<!--<input type="text" id="amount" placeholder="Amount">-->
+									
+									<input id="submit-btn" type="button" onclick="" value="Submit" ng-click="loadPlaces()">
+									<input id="question" type="button" onclick="fqAnswer()" value="?" ng-click="checkPlaces()">
+									
+									<span style="padding: 15px;" id="fq-text"></span>
+								</form>
+								</div>
+							</div>
+				
+				<a href=""><img id="search-icon" src="http://i.imgur.com/huBw3xR.png" ng-click="searchView()"/></a>
+				<a href=""><img id="map-icon" src="http://i.imgur.com/IIfm7Gr.png" ng-click="mapView()"/></a>
 				
 				<!--<div class="col-md-8">
 					<nav>
@@ -43,13 +61,13 @@
 
 			<div class="row">
 
-				<div class="col-md-4" style="">
+				<div class="col-md-4" id="left-div">
 					<div id="left-box" class="left-box">
 						<div class="place-search whitey">
 					
-							<h1 style="margin-top: 0px; padding-top: 3px;" class="text-center"><b>Search Places</b></h1>
+							<!--<h1 style="margin-top: 0px; padding-top: 3px;" class="text-center"><b>Search Places</b></h1>
 							
-							<!--<div id="any-search">
+							<div id="any-search">
 								<h4 class="text-center">Search any location.</h4>
 								<form id="form"><center>
 									<input type="text" id="street" placeholder="Street">
@@ -58,7 +76,7 @@
 									<input id="question" type="button" onclick="answer()" value="?">
 									<br><b><p id="search-text">{{searchText}}</p></b>
 								</form>
-							</div>-->
+							</div>
 						
 							<div id="fq-search" class="whitey">
 								<h4 class="text-center">Search FourSquare.</h4>
@@ -70,14 +88,14 @@
 									<input id="question" type="button" onclick="fqAnswer()" value="?" ng-click="checkPlaces()">
 									<p style="padding: 15px;" id="fq-text"></p>
 								</form>
-							</div>
+							</div>-->
 							
 						</div>
 						
 					</div>
 					
 					<div id="results-box" class="whitey" style="border: 1px solid black;">
-						<h1 class="text-center"><b>Four Square Places</b></h1>
+						<h1 class="text-center" style="background-image: linear-gradient(to bottom, #ffffff,#cccccc);"><b>Four Square Places</b></h1>
 						<p class="text-center" id="m-text">Click A Result To Show On The 
 						Map. <br>Click The Icons At The Top To Alternate Views.</p>
 						<center>
@@ -109,7 +127,7 @@
 					</div>
 				</div>
 
-				<div class="main-box col-md-8">
+				<div class="main-box col-md-{{mapSize}}">
 					
 					<div class="div-map whitey" style="padding10px; border: 1px solid black;">
 						<h2 id="g-text" class="text-center">Google Maps</h2>
