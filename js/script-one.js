@@ -128,10 +128,7 @@ App.controller('masterCtrl', function($scope) {
 		};
 		
 		// Checking Amount Input
-		if(isNaN(amount)) {
-			alert('Value is Not a Number. Please submit numbers only for this input field.');
-			return;
-		};
+		/*
 		if(amount == '') {
 			amount = 50;
 		};
@@ -142,7 +139,7 @@ App.controller('masterCtrl', function($scope) {
 		if(amount > 50) {
 			alert('Value too high. Please use a number that is greater than 0, less than 51.');
 			return;
-		};
+		};*/
 		
 		var streetViewUrl = 'http://maps.googleapis.com/maps/api/streetview?size=500x400&location=' + City + '';
 		$('#street-img').src = streetViewUrl;
