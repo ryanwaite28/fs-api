@@ -126,16 +126,11 @@ App.controller('masterCtrl', function($scope) {
 			return;
 		};
 		
-<<<<<<< HEAD
 		/* Checking Amount Input
 		if(isNaN(amount)) {
 			alert('Value is Not a Number. Please submit numbers only for this input field.');
 			return;
 		};
-=======
-		// Checking Amount Input
-		/*
->>>>>>> 03da5fdee0ddf5c395a51ef828180083d8729d7f
 		if(amount == '') {
 			alert('Value was blank/empty. Please submit a number for this input field.');
 			return;
