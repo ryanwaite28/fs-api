@@ -20,15 +20,14 @@
 		<div class="container-fluid blacky">
 		
 			<div class="row whitey" style="border-bottom: 1px solid black;">
-				<div style="border-bottom: 1px solid black;background-image: linear-gradient(to bottom, #ffffff,#cccccc);" class="col-md-12">
-					<h1 class="text-center header-text" onclick=""><b>FourSquare!</b></h1>
+				<div class="col-md-12" style="border-bottom: 1px solid black;">
+					<h1 class="text-center header-text" onclick="sayHello()">FourSquare!</h1>
 				</div>
-				
 				<div id="fq-search" class="whitey col-md-12" style="padding: 0px;">
 								<div class="col-md-4" style="padding: 0px;">
 								<h4 class="text-center"><b>Search Places</b></h4>
 								</div>
-								<div class="col-md 8" style="">
+								<div class="col-md 8" style="padding-top: 6px;">
 								<form id="form"><center>
 									<input type="text" id="query" placeholder="Search Query">
 									<input type="text" id="query-city" placeholder="Search City">
@@ -41,69 +40,17 @@
 								</form>
 								</div>
 							</div>
-				
-				<a href=""><img id="search-icon" src="http://i.imgur.com/huBw3xR.png" ng-click="searchView()"/></a>
-				<a href=""><img id="map-icon" src="http://i.imgur.com/IIfm7Gr.png" ng-click="mapView()"/></a>
-				
-				<!--<div class="col-md-8">
-					<nav>
-						<ul class="nav-bar">
-							<li><a href="home.html">Home</a></li>
-							<li><a href="fs-api.html">FourSquare API</a></li>
-							<li><a href="nyt-api.html">NY Times API</a></li>
-							<li><a href="fnt-api.html">Nutritionix API</a></li>
-							<li><a href="scl-api.html">Social API</a></li>
-							<li><button id="info-btn" onclick="webInfo()">Web Info</button></li>
-						</ul>
-					</nav>
-				</div>-->
 			</div><br>
 
 			<div class="row">
 
-				<div class="col-md-4" id="left-div">
-					<div id="left-box" class="left-box">
-						<div class="place-search whitey">
+				<div class="col-md-4" style="">
 					
-							<!--<h1 style="margin-top: 0px; padding-top: 3px;" class="text-center"><b>Search Places</b></h1>
-							
-							<div id="any-search">
-								<h4 class="text-center">Search any location.</h4>
-								<form id="form"><center>
-									<input type="text" id="street" placeholder="Street">
-									<input type="text" id="city" placeholder="City"><br>
-									<input id="submit-btn" type="button" onclick="" value="Submit" ng-click="searchLocation()">
-									<input id="question" type="button" onclick="answer()" value="?">
-									<br><b><p id="search-text">{{searchText}}</p></b>
-								</form>
-							</div>
-						
-							<div id="fq-search" class="whitey">
-								<h4 class="text-center">Search FourSquare.</h4>
-								<form id="form"><center>
-									<input type="text" id="query" placeholder="Search Query"><br>
-									<input type="text" id="query-city" placeholder="Search City"><br>
-									<input type="text" id="amount" placeholder="Amount of Results" style="width: 125px;"><br>
-									<input id="submit-btn" type="button" onclick="" value="Submit" ng-click="loadPlaces()">
-									<input id="question" type="button" onclick="fqAnswer()" value="?" ng-click="checkPlaces()">
-									<p style="padding: 15px;" id="fq-text"></p>
-								</form>
-							</div>-->
-							
-						</div>
-						
-					</div>
-					
-					<div id="results-box" class="whitey" style="border: 1px solid black;">
-						<h1 class="text-center" style="background-image: linear-gradient(to bottom, #ffffff,#cccccc);"><b>Four Square Places</b></h1>
-						<p class="text-center" id="m-text">Click A Result To Show On The 
-						Map. <br>Click The Icons At The Top To Alternate Views.</p>
-						<center>
-						<input type="text" id="search-filter" placeholder="Search Filter" ng-model="place"/>
-						<!--<button type="button" id="filter-btn" ng-click="filterResults()">Filter</button>-->
-						</center>
+					<div class="whitey" style="border: 1px solid black;">
+						<h1 class="text-center" style="border-bottom: 1px solid black; padding-bottom: 5px;">Four Square Places</h1>
+
 						<ul class="place-list">
-							<li  class="fq-items" ng-repeat="place in places | filter : {placeName:place}" ng-click="showMarker(this)">
+							<li  class="fq-items" ng-repeat="place in places" ng-click="showMarker(this)">
 								<div>
 									<b><h4>{{place.placeName}}</h4></b>
 									<p>
@@ -118,30 +65,29 @@
 								</div>
 							</li>
 						</ul>
-						
 					</div><br>
 					
 					<div class="wikipedia-container border whitey" style="margin-bottom: 20px; border: 1px solid black;">
-						<h2 class="text-center" id="wikipedia-header">Relevant Wikipedia Links</h2>
-						<ul class="text-center" id="wikipedia-links">Type in an address above and find relevant Wikipedia articles here!</ul>
+						<h2 class="text-center" id="wikipedia-header" style="border-bottom: 1px solid black; padding-bottom: 5px;">Relevant Wikipedia Links</h2>
+						<ul class="text-center" id="wikipedia-links">Type in a search query above and find relevant Wikipedia articles here!</ul>
+					</div>
+					<div class="whitey" style="padding:10px; border: 1px solid black; margin-bottom: 15px;">
+						<h2 class="text-center" style="border-bottom: 1px solid black; padding-bottom: 5px;">Google StreetView</h2>
+						<div id="street-view">
+							<center><img alt="Google Image" id="street-img" class="street-img" src={{imgURL}}/></center>
+						</div>
 					</div>
 				</div>
 
-				<div class="main-box col-md-{{mapSize}}">
+				<div class="main-box col-md-8">
 					
-					<div class="div-map whitey" style="padding10px; border: 1px solid black;">
-						<h2 id="g-text" class="text-center">Google Maps</h2>
+					<div class="whitey" style="padding10px; border: 1px solid black;">
+						<!--<h2 class="text-center">Google Maps</h2>-->
 						<div id="map-div" class="map-div">
 					
 						</div>
 					</div>
 					<br>
-					<div class="google-img whitey" style="padding10px; border: 1px solid black;">
-						<h2 class="text-center">Google StreetView</h2>
-						<div id="street-view">
-							<center><img alt="Google Image" id="street-img" class="street-img" src={{imgURL}}/></center>
-						</div>
-					</div>
 
 				</div>
 				
