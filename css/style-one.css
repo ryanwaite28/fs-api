@@ -5,7 +5,6 @@ body {
 
 input {
 	margin-bottom: 5px;
-	
 }
 
 .info-img {
@@ -17,17 +16,18 @@ input {
 }
 
 .header-text {
-<<<<<<< HEAD
 	margin: 2px;
 	-webkit-transition: transition: 0.4s;
 	transition: 0.4s;
-=======
 	line-height: 55px;
 	vertical-align: middle;
 	-webkit-transition: transition: 0.3s;
 	transition: 0.34s;
 	margin: 0px;
->>>>>>> 03da5fdee0ddf5c395a51ef828180083d8729d7f
+}
+
+#place-filter {
+	width: 95%;
 }
 
 .header-text:hover {
@@ -72,9 +72,28 @@ input {
 
 .place-list {
 	margin-top: 0px;
+	margin-bottom: 5px;
     padding: 5px;
-    height: 50vh;
+    height: 65vh;
+    width: 95%;
+    display: block;
+    margin: auto;
     overflow-y: scroll;
+    border: 1px solid black;
+}
+
+#refresh {
+	height: 40px;
+	width: 40px;
+	position: absolute;
+	-webkit-transition: transition 0.3s;
+	transition: 0.3s;
+	border: 2px solid black;
+	bottom: 40px;
+	left: 15px;
+	background-color: white;
+	opacity: 0.7;
+	z-index: 1000;
 }
 
 .place-list::-webkit-scrollbar {
@@ -85,7 +104,7 @@ input {
 	background-color: gray;
     margin-bottom: 5px;
     padding: 5px;
-    width: 95%;
+    width: 100%;
     display: block;
     margin: auto;
     margin-bottom: 5px;
@@ -129,9 +148,12 @@ input {
 	
 }
 
-.map-div {
+#map-div {
 	width: 100%;
-	height: 83vh;
+	height: 80vh;
+}
+#mapdiv {
+	position: relative;
 }
 #street-view {
 	width: 100%;
@@ -151,8 +173,8 @@ input {
 	height: 48%;
 }
 
-.news-div {
-	
+#search-div {
+	padding-bottom: 10px;
 }
 
 .news-list {
@@ -176,4 +198,58 @@ input {
 
 .text-shadow {
 	text-shadow: 2px 2px 5px gray;
+}
+
+.top-icon {
+	display: none;
+	height: 55px;
+	width: 55px;
+	position: absolute;
+	-webkit-transition: transition 0.3s;
+	transition: 0.3s;
+}
+.top-icon:hover, #refresh:hover {
+	background-color: grey;
+	transition: 0.3s;
+}
+
+#menu-icon {
+	border-left: 1px solid black;
+	top: 0px;
+	right: 0px;
+	padding: 4px;
+}
+
+#search-icon {
+	border-right: 1px solid black;
+	top: 0px;
+	left: 0px;
+	padding: 2px;
+}
+
+@media (max-width: 500px) {
+
+	#query, #query-city {
+		display: block;
+		margin: auto;
+		margin-bottom: 5px;
+	}
+
+	input {
+		margin-bottom: 5px;
+	}
+
+}
+
+@media (max-width: 992px) {
+
+	.top-icon {
+		display: block;
+		z-index: 1000;
+	}
+
+	#map-div, #refresh {
+		display: none;
+	}
+
 }
