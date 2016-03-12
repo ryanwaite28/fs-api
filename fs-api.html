@@ -18,8 +18,12 @@
 	
 		<!--   -->
 		<div class="container-fluid blacky">
+
+			<a title="Search Icon - Click To Show Or Hide Search Box" href="#"><img id="search-icon" class="top-icon" src="http://i.imgur.com/huBw3xR.png"/></a>
+
+			<a title="Menu Icon - Click To Show Or Hide Results Box" href="#"><img id="menu-icon" class="top-icon" src="http://i.imgur.com/DqLbHOP.png"/></a>
 		
-			<div class="row whitey" style="border-bottom: 1px solid black;">
+			<div class="row whitey" style="border-bottom: 1px solid black; margin-bottom: 10px;">
 				<div class="col-md-12" style="border-bottom: 1px solid black;">
 					<h1 class="text-center header-text" onclick="sayHello()">FourSquare!</h1>
 				</div>
@@ -31,7 +35,6 @@
 								<form id="form"><center>
 									<input type="text" id="query" placeholder="Search Query">
 									<input type="text" id="query-city" placeholder="Search City">
-									<!--<input type="text" id="amount" placeholder="Amount">-->
 									
 									<input id="submit-btn" type="button" onclick="" value="Submit" ng-click="loadPlaces()">
 									<input id="question" type="button" onclick="fqAnswer()" value="?" ng-click="checkPlaces()">
@@ -40,17 +43,18 @@
 								</form>
 								</div>
 							</div>
-			</div><br>
+			</div>
 
 			<div class="row">
 
 				<div class="col-md-4" style="">
 					
-					<div class="whitey" style="border: 1px solid black;">
+					<div id="search-div" class="whitey" style="border: 1px solid black;">
 						<h1 class="text-center" style="border-bottom: 1px solid black; padding-bottom: 5px;">Four Square Places</h1>
-
+						<center><input title=" --- If markers don't return after emptying input, just press space. The markers will return" id="place-filter" ng-keyup="filterResults()" ng-model="filter" placeholder="Filter Results by Place Name"/></center>
+						<br>
 						<ul class="place-list">
-							<li  class="fq-items" ng-repeat="place in places" ng-click="showMarker(this)">
+							<li title="Click Any List Item To Show Its Marker On the Map" class="fq-items" ng-repeat="place in places | filter: {placeName:filter}" ng-click="showMarker(this)">
 								<div>
 									<b><h4>{{place.placeName}}</h4></b>
 									<p>
@@ -67,11 +71,11 @@
 						</ul>
 					</div><br>
 					
-					<div class="wikipedia-container border whitey" style="margin-bottom: 20px; border: 1px solid black;">
+					<div id="wiki-div" class="wikipedia-container border whitey" style="margin-bottom: 20px; border: 1px solid black;">
 						<h2 class="text-center" id="wikipedia-header" style="border-bottom: 1px solid black; padding-bottom: 5px;">Relevant Wikipedia Links</h2>
 						<ul class="text-center" id="wikipedia-links">Type in a search query above and find relevant Wikipedia articles here!</ul>
 					</div>
-					<div class="whitey" style="padding:10px; border: 1px solid black; margin-bottom: 15px;">
+					<div id="img-div" class="whitey" style="padding:10px; border: 1px solid black;">
 						<h2 class="text-center" style="border-bottom: 1px solid black; padding-bottom: 5px;">Google StreetView</h2>
 						<div id="street-view">
 							<center><img alt="Google Image" id="street-img" class="street-img" src={{imgURL}}/></center>
@@ -79,15 +83,16 @@
 					</div>
 				</div>
 
-				<div class="main-box col-md-8">
+				<div id="mapdiv" class="main-box col-md-8">
 					
 					<div class="whitey" style="padding10px; border: 1px solid black;">
-						<!--<h2 class="text-center">Google Maps</h2>-->
+						<h2 style="border-bottom: 1px solid black; margin: 0; padding: 10px;" class="text-center">Google Maps</h2>
+
 						<div id="map-div" class="map-div">
-					
+							
 						</div>
+						<a title="Refresh Icon - Set Map Back To Main View" href="#"><img id="refresh" src="https://cdn3.iconfinder.com/data/icons/mobiactions/512/refresh_reload_arrow_sync-512.png"/></a>
 					</div>
-					<br>
 
 				</div>
 				
