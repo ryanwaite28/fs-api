@@ -115,7 +115,6 @@ App.controller('masterCtrl', function($scope) {
 		
 		var query = $('#query').val();
 		var City = $('#query-city').val();
-		var amount = $('#amount').val();
 		
 		//Checking Inputs
 		if(query == '') {
@@ -127,10 +126,14 @@ App.controller('masterCtrl', function($scope) {
 			return;
 		};
 		
-		// Checking Amount Input
-		/*
+		/* Checking Amount Input
+		if(isNaN(amount)) {
+			alert('Value is Not a Number. Please submit numbers only for this input field.');
+			return;
+		};
 		if(amount == '') {
-			amount = 50;
+			alert('Value was blank/empty. Please submit a number for this input field.');
+			return;
 		};
 		if(amount == 0) {
 			alert('Value was 0. Please use a number that is greater than 0, less than 51.');
@@ -327,9 +330,7 @@ App.controller('masterCtrl', function($scope) {
 
             $scope.mapMarkers.push({
                 marker: marker,
-                content: infoBox,
-				title: thisName,
-				id: ID,
+                content: infoBox
             });
 
             google.maps.event.addListener(marker, 'click', function() {
@@ -371,11 +372,12 @@ App.controller('masterCtrl', function($scope) {
         if (!input) {
             return;
         } else {
-            $scope.mapMarkers = [];
+            $scope.places = [];
 			
             for (var i = 0; i < list.length; i++) {
-                if (markers[i].title.toLowerCase().indexOf(input) != -1) {
+                if (list[i].placeName.toLowerCase().indexOf(input) != -1) {
                     markers[i].marker.setMap(map);
+                    $scope.places.push(list[i]);
 					
                 } else { 
 					markers[i].marker.setMap(null);
@@ -383,14 +385,10 @@ App.controller('masterCtrl', function($scope) {
                 }
 	
             }
-			
-			
 
-        }
-		console.log(markers);
-		$scope.$apply(function () {
-				console.log('Filter');
-			});
+        }console.log(markers);
+		
+		
 	}
 	
 	
@@ -404,72 +402,10 @@ App.controller('masterCtrl', function($scope) {
 			$('#fq-text').text('');
 		}, 3000);
 	}
-	
-	/* --- View Changer --- */
-	
-	$scope.mapSize = 8;
 
-	var searchIcon = $('#search-icon');
-	var mapIcon = $('#map-icon');
 	
-	var fqBox = $('#fq-search');
-	var resultsBox = $('#results-box');
-	
-	var mapDiv = $('#div-map');
-	
-	$scope.mapView = function() {
-		$('.main-box').css({'height': '100vh', 'margin-top': '-10px'});
-		fqBox.css({'display': 'none'});
-		resultsBox.css({'display': 'none'});
-		$scope.mapSize = 12;
-	}
-	
-	$scope.searchView = function() {
-		$('.main-box').css({'height': '0vh', 'margin-top': '0px'});
-		fqBox.css({'display': 'block'});
-		resultsBox.css({'display': 'block'});
-		$scope.mapSize = 8;
-	}
-	
-	/*searchIcon.click(function(){
-		mapDiv.css({'height': '0vh'});
-		fqBox.css({'display': 'block'});
-		resultsBox.css({'display': 'block'});
-		$scope.mapSize = 0;
-	})
-	
-	mapIcon.click(function(){
-		mapDiv.css({'height': '100vh'});
-		fqBox.css({'display': 'none'});
-		resultsBox.css({'display': 'none'});
-		$scope.mapSize = 12;
-	})*/
 	
 });
-
-/*$(document).ready(function() {
-	
-	var searchIcon = $('#search-icon');
-	var mapIcon = $('#map-icon');
-	
-	var fqBox = $('#fq-search');
-	var resultsBox = $('#results-box');
-	
-	var mapDiv = $('#div-map');
-	
-	searchIcon.click(function(){
-		mapDiv.css({'height': '0vh'});
-		fqBox.css({'display': 'block'});
-		resultsBox.css({'display': 'block'});
-	})
-	
-	mapIcon.click(function(){
-		mapDiv.css({'height': '100vh'});
-		fqBox.css({'display': 'none'});
-		resultsBox.css({'display': 'none'});
-	})
-	
-});*/
  
 function answer() {
 	alert("You can also search other Countries as well! Just put the city and then region/country! Also, you don't have to submit a street address. Submit a city and state (or other location in the world) to mark the map and get news about it, as well as a twitter feed!");

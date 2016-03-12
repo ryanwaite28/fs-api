@@ -1,8 +1,6 @@
 body {
-	max-width: 99.99%;
-	max-height: 99.99vh;
+	width: 100%;
 	margin: auto;
-	background-color: black;
 }
 
 input {
@@ -19,11 +17,17 @@ input {
 }
 
 .header-text {
+<<<<<<< HEAD
+	margin: 2px;
+	-webkit-transition: transition: 0.4s;
+	transition: 0.4s;
+=======
 	line-height: 55px;
 	vertical-align: middle;
 	-webkit-transition: transition: 0.3s;
 	transition: 0.34s;
 	margin: 0px;
+>>>>>>> 03da5fdee0ddf5c395a51ef828180083d8729d7f
 }
 
 .header-text:hover {
@@ -57,24 +61,24 @@ input {
 }
 
 #form {
-	padding-top: 6px;
-	width: 90%;
+	display: block;
 	margin: auto;
 }
 
  .srh-txt {
-	 padding-top: 15px;
-	 margin: 0px;
+	padding-top: 15px;
+	margin: 0px;
  }
 
 .place-list {
-    margin-top: 5px;
-    margin-bottom: -10px;
+	margin-top: 0px;
     padding: 5px;
-    height: 60vh;
+    height: 50vh;
     overflow-y: scroll;
-    width: 100%;
-    margin: auto;
+}
+
+.place-list::-webkit-scrollbar {
+	
 }
 
 .fq-items, .food-items {
@@ -127,7 +131,7 @@ input {
 
 .map-div {
 	width: 100%;
-	height: 76vh;
+	height: 83vh;
 }
 #street-view {
 	width: 100%;
@@ -172,105 +176,4 @@ input {
 
 .text-shadow {
 	text-shadow: 2px 2px 5px gray;
-}
-
-#results-box {
-	/* height: 65vh; */
-}
-
-#search-icon, #map-icon {
-	display: none;
-	visibility: hidden;
-	height: 0px;
-	width: 0px;
-}
-
-#m-text {
-	display: none;
-}
-
-.main-box  {
-	
-}
-
-/*  */
-
-@media (max-height: 992px) {
-	
-	.wikipedia-container,
-	.google-img, #g-text {
-		display: none;
-	}
-	
-	.div-map  {
-		height: 86vh;
-	}
-	.map-div {
-		height: 100%;
-	}
-	
-	#results-box {
-		height: 86vh;
-	}
-	
-	#results-box h1, #left-box h1{
-		font-size: 22px;
-		margin: 0px;
-		padding: 10px;
-		border-bottom: 1px solid black;
-	}
-	#m-text {
-		display: block;
-		padding: 10px;
-		margin: 0px;
-	}
-	
-	#map-icon {
-		display: block;
-		visibility: visible;
-		position: absolute;
-		top: 0px;
-		right: 0px;
-		height: 55px;
-		width: 55px;
-		padding: 8px;
-		border-left: 1px solid black;
-	}
-	
-	#search-icon {
-		display: block;
-		visibility: visible;
-		position: absolute;
-		top: 0px;
-		left: 0px;
-		height: 55px;
-		width: 55px;
-		border-right: 1px solid black;
-	}
-	
-}
-
-@media (max-height: 675px) {
-
-	.header-text {
-		font-size: 25px;
-	}
-	.main-box {
-		margin-top: -40px;
-	}
-	
-	#query, #query-city, #amount {
-		width: 120px;
-	}
-	#results-box {
-		margin-top: -21px;
-		width: 100%;
-	}
-	#left-div, .main-box {
-		padding: 0px;
-	}
-	#d-btn {
-		
-	}
-
 }
