@@ -3,9 +3,9 @@ var map;
 function initMap() {
   // Create a map object and specify the DOM element for display.
   map = new google.maps.Map(document.getElementById('map-div'), {
-    center: {lat: 39.173303, lng: -77.177274},
-    scrollwheel: true,
-    zoom: 5
+	center: {lat: 39.173303, lng: -77.177274},
+	scrollwheel: true,
+	zoom: 5
   });
   
   var infowindow = new google.maps.InfoWindow();
@@ -20,11 +20,41 @@ $(document).ready(function(){
 	var menuIcon = $('#menu-icon');
 	var refreshIcon = $('#refresh');
 
-	var mapDiv = $('#map-div');
+	var mapDiv = $('#mapdiv');
 	var searchDiv = $('#search-div');
 	var wikiDiv = $('#wiki-div');
 	var imgDiv = $('#img-div');
 	var inputDiv = $('#fq-search');
+	
+	var dropIcon = $('#dropdown-icon');
+	var wikiList = $('#wikipedia-links');
+	
+	$('#wikipedia-links').hide('fast');
+	
+	var wHidden = true;
+	
+	dropIcon.click(function(){
+		
+		if(wHidden == true) {
+			wikiList.show('fast');
+			dropIcon.toggleClass('rotate');
+			wHidden = false;
+		}
+		else {
+			wikiList.hide('fast');
+			dropIcon.toggleClass('rotate');
+			wHidden = true;
+		}
+
+	});
+	
+	var cWidth = $(window).width();
+	
+	if(cWidth <= 992) {
+		setTimeout(function(){
+			mapDiv.hide();
+		},500);
+	}
 
 
 	searchIcon.click(function(){
@@ -52,25 +82,20 @@ $(document).ready(function(){
 
 	refreshIcon.click(function(){
 		map.setZoom(5);
-		map.setCenter({lat: 39.126182556152344, lng: -100.8551254272461});
-      map.panBy(100, -10);
 	});
 
 	$(window).resize(function(){
 
-      var cWidth = $(window).width();
+	  var cWidth = $(window).width();
 
-      if(cWidth >= 992) {
-        mapDiv.show();
+	  if(cWidth > 992) {
+		mapDiv.show();
 		searchDiv.show();
 		wikiDiv.show();
 		imgDiv.show();
 		inputDiv.show();
 		refreshIcon.show();
-      }
-      else {
-         // Do Nothing
-      }
+	  }
 
 	})
 
@@ -111,8 +136,6 @@ App.controller('masterCtrl', function($scope) {
 		
 		$scope.places = [];
 		
-		$scope.mapMarkers = [];
-		
 		$.getJSON(apiURL, function(data) {
 			console.log(data);
 			
@@ -136,79 +159,43 @@ App.controller('masterCtrl', function($scope) {
 				
 				if (venue.location.address === undefined) continue;
 
-                var venueName = venue.name;
+				var venueName = venue.name;
 				var venueID = venue.id;
-                var venueAddress = venue.location.address;
-                var venueCity = venue.location.city;
-                var venueState = venue.location.state;
-                var venueZip = venue.location.postalCode;
+				var venueAddress = venue.location.address;
+				var venueCity = venue.location.city;
+				var venueState = venue.location.state;
+				var venueZip = venue.location.postalCode;
 				var venueCountry = venue.location.country;
-                var venuePhone = venue.contact.formattedPhone;
-                var venueLat = venue.location.lat;
-                var venueLng = venue.location.lng;
-                var venueImg = 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + venue.location.lat + ',' + venue.location.lng + '&heading=151.78&pitch=-0.76&key=AIzaSyBWq_bL3W2U17sffyrBJdzsxeFT445s9EU';
+				var venuePhone = venue.contact.formattedPhone;
+				var venueLat = venue.location.lat;
+				var venueLng = venue.location.lng;
+				var venueImg = 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + venue.location.lat + ',' + venue.location.lng + '&heading=151.78&pitch=-0.76&key=AIzaSyBWq_bL3W2U17sffyrBJdzsxeFT445s9EU';
 				var venueStatus = venue.hereNow.summary;
 				var venueSpecials = venue.specials.count;
 				
-				var infoBox = '<div style="border: 1px solid black; padding: 10px;">' + '<h4>' + venueName + '</h4>' + '<p>' + venueAddress + '</p>' + '<p>' + venueCity + ', ' + venueState + ' ' + venueZip + '</p>' + '<p>' + venuePhone + '</p>' + '<center>' + '<img class="info-img" src="' + venueImg + '"/>' + '</center>' +
-                '<br>' + '<center>' + '<p>Brought to you by, <i>FourSquare!</i></p>' + '<img class="icon-one" src="https://cdn0.iconfinder.com/data/icons/social-flat-rounded-rects/512/foursquare-32.png"/>' + '</center>' + '<br>' +
-				'<a href="\https://www.google.com/search?q=' + venueName + '&oq=' + venueName + '&aqs=chrome..69i57&sourceid=chrome&es_sm=122&ie=UTF-8">' + 
-				'<p class="text-center">' + 'Google Search' + '</p>' + '</a>' + '</div>';
 
-				var marker = new google.maps.Marker({
-					position: {lat: venueLat, lng: venueLng},
-					title: venueName,
-					id: venueID,
-					animation: google.maps.Animation.DROP,
-					map: map
-				});
+			
 
-				marker.addListener('click', function() {
-                if (marker.getAnimation() !== null) {
-                    marker.setAnimation(null);
-                } else {
-                    marker.setAnimation(google.maps.Animation.BOUNCE);
-                }
-                setTimeout(function() {
-                    marker.setAnimation(null)
-                }, 1500);
-            });
-
-            $scope.mapMarkers.push({
-                marker: marker,
-                content: infoBox
-            });
-
-            google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent(infoBox);
-                map.setZoom(13);
-                map.setCenter(marker.position);
-                infowindow.open(map, marker);
-                map.panBy(0, -125);
-            });
-				
 				//Adds places to array
 				$scope.places.push({
 					placeName: venueName,
 					placeID: venueID,
-                    placeAddress: venueAddress,
-                    placeCity: venueCity,
-                    placeState: venueState,
-                    placeZip: venueZip,
+					placeAddress: venueAddress,
+					placeCity: venueCity,
+					placeState: venueState,
+					placeZip: venueZip,
 					placeCountry: venueCountry,
-                    placePhone: venuePhone,
-                    placeLat: venueLat,
-                    placeLng: venueLng,
-                    placeImg: venueImg,
+					placePhone: venuePhone,
+					placeLat: venueLat,
+					placeLng: venueLng,
+					placeImg: venueImg,
 					placeStatus: venueStatus,
 					placeSpecials: venueSpecials,
-					placeInfoBox : infoBox,
-					placeMarker : marker,
 				});
-				
-			}
 			
-			//$scope.addMarker($scope.places);
+			};
+			
+			$scope.addMarker($scope.places);
 			
 			console.log('done push');
 			
@@ -245,63 +232,68 @@ App.controller('masterCtrl', function($scope) {
 				clearTimeout(wikiTimeout);
 			}
 		
-		})		
+		})
+
+		$('#dropdown-icon').show('fast');
 		
 	}
 	
-	/*$scope.addMarker = function(array) {
+	$scope.mapMarkers = [];
+	
+	$scope.addMarker = function(array) {
 		
 		$.each(array, function(index, value) {
 			var infowindow = new google.maps.InfoWindow();
 			
-            var latitude = value.placeLat,
-                longitude = value.placeLng,
-                Loc = new google.maps.LatLng(latitude, longitude),
-                thisName = value.placeName;
+			var latitude = value.placeLat,
+				longitude = value.placeLng,
+				Loc = new google.maps.LatLng(latitude, longitude),
+				thisName = value.placeName;
 				
 			var ID = value.placeID;
 
-            var infoBox = '<div style="border: 1px solid black; padding: 10px;">' + '<h4>' + value.placeName + '</h4>' + '<p>' + value.placeAddress + '</p>' + '<p>' + value.placeCity + ', ' + value.placeState + ' ' + value.placeZip + '</p>' + '<p>' + value.placePhone + '</p>' + '<center>' + '<img class="info-img" src="' + value.placeImg + '"/>' + '</center>' +
-                '<br>' + '<center>' + '<p>Brought to you by, <i>FourSquare!</i></p>' + '<img class="icon-one" src="https://cdn0.iconfinder.com/data/icons/social-flat-rounded-rects/512/foursquare-32.png"/>' + '</center>' + '<br>' +
+			var infoBox = '<div style="border: 1px solid black; padding: 10px;">' + '<h4>' + value.placeName + '</h4>' + '<p>' + value.placeAddress + '</p>' + '<p>' + value.placeCity + ', ' + value.placeState + ' ' + value.placeZip + '</p>' + '<p>' + value.placePhone + '</p>' + '<center>' + '<img class="info-img" src="' + value.placeImg + '"/>' + '</center>' +
+				'<br>' + '<center>' + '<p>Brought to you by, <i>FourSquare!</i></p>' + '<img class="icon-one" src="https://cdn0.iconfinder.com/data/icons/social-flat-rounded-rects/512/foursquare-32.png"/>' + '</center>' + '<br>' +
 				'<a href="\https://www.google.com/search?q=' + value.placeName + '&oq=' + value.placeName + '&aqs=chrome..69i57&sourceid=chrome&es_sm=122&ie=UTF-8">' + 
 				'<p class="text-center">' + 'Google Search' + '</p>' + '</a>' + '</div>';
 
-            var marker = new google.maps.Marker({
-                position: Loc,
-                title: thisName,
+			var marker = new google.maps.Marker({
+				position: Loc,
+				title: thisName,
 				id: ID,
-                animation: google.maps.Animation.DROP,
-                map: map
-            });
+				animation: google.maps.Animation.DROP,
+				map: map
+			});
 
-            marker.addListener('click', function() {
-                console.log('Marker Animation');
-                if (marker.getAnimation() !== null) {
-                    marker.setAnimation(null);
-                } else {
-                    marker.setAnimation(google.maps.Animation.BOUNCE);
-                }
-                setTimeout(function() {
-                    marker.setAnimation(null)
-                }, 1500);
-            });
+			marker.addListener('click', function() {
+				console.log('Marker Animation');
+				if (marker.getAnimation() !== null) {
+					marker.setAnimation(null);
+				} 
+				else {
+					marker.setAnimation(google.maps.Animation.BOUNCE);
+				}
+				setTimeout(function() {
+					marker.setAnimation(null)
+				}, 1500);
+			});
 
-            $scope.mapMarkers.push({
-                marker: marker,
-                content: infoBox
-            });
+			$scope.mapMarkers.push({
+				marker: marker,
+				content: infoBox
+			});
 
-            google.maps.event.addListener(marker, 'click', function() {
-                console.log('click function working');
-                infowindow.setContent(infoBox);
-                map.setZoom(13);
-                map.setCenter(marker.position);
-                infowindow.open(map, marker);
-                map.panBy(0, -125);
-            });
-        });
+			google.maps.event.addListener(marker, 'click', function() {
+				console.log('click function working');
+				infowindow.setContent(infoBox);
+				map.setZoom(13);
+				map.setCenter(marker.position);
+				infowindow.open(map, marker);
+				map.panBy(0, -125);
+			});
+		});
 		
-	}*/
+	}
 
 	$scope.showMarker = function(string) {
 		console.log(string);
@@ -310,14 +302,14 @@ App.controller('masterCtrl', function($scope) {
 		
 		var clickedItem = string.place.placeID;
 
-        for (var key in $scope.mapMarkers) {
-            if (clickedItem === $scope.mapMarkers[key].marker.id) {
-                map.panTo($scope.mapMarkers[key].marker.position);
-                map.setZoom(13);
-                infowindow.setContent($scope.mapMarkers[key].content);
-                infowindow.open(map, $scope.mapMarkers[key].marker);
-                map.panBy(0, 125);
-            }
+		for (var key in $scope.mapMarkers) {
+			if (clickedItem === $scope.mapMarkers[key].marker.id) {
+				map.panTo($scope.mapMarkers[key].marker.position);
+				map.setZoom(13);
+				infowindow.setContent($scope.mapMarkers[key].content);
+				infowindow.open(map, $scope.mapMarkers[key].marker);
+				map.panBy(0, 125);
+			}
 		}	
 
 	}
@@ -326,30 +318,29 @@ App.controller('masterCtrl', function($scope) {
 
 		var input = $('#place-filter').val().toLowerCase();
 		console.log(input);
-        var list = $scope.places;
-        if (input == '' || !input) {
-        	$.each($scope.mapMarkers, function(index, item){
-        		$scope.mapMarkers[index].marker.setMap(map);
-        	})
-            return;
-        } else {
+		var list = $scope.places;
+		if (input == '' || !input) {
+			$.each($scope.mapMarkers, function(index, item){
+				$scope.mapMarkers[index].marker.setMap(map);
+			})
+			return;
+		} else {
 
-            for (var i = 0; i < list.length; i++) {
-				//console.log($scope.mapMarkers[i]);
-                if (list[i].placeName.toLowerCase().indexOf(input) != -1) {
+			for (var i = 0; i < list.length; i++) {
+				if (list[i].placeName.toLowerCase().indexOf(input) != -1) {
 
-					      $scope.mapMarkers[i].marker.setMap(map);
+						  $scope.mapMarkers[i].marker.setMap(map);
 
-                } 
-                else {
+				} 
+				else {
 
 					   $scope.mapMarkers[i].marker.setMap(null);
 
-               }
+			   }
 
-            }
+			}
 
-        }
+		}
 
 	}
 	
