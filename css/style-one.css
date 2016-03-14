@@ -227,6 +227,24 @@ input {
 	padding: 2px;
 }
 
+#dropdown-icon {
+	width: 45px;
+	height: 45px;
+	display: block;
+	margin: auto;
+	display: none;
+}
+#dropdown-icon:hover {
+	background-color: grey;
+}
+.rotate {
+	-webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
+	-moz-transform: rotate(180deg);        /* FF */
+	-o-transform: rotate(180deg);          /* Opera */
+	-ms-transform: rotate(180deg);         /* IE9 */
+	transform: rotate(180deg);
+}
+
 @media (max-width: 500px) {
 
 	#query, #query-city {
@@ -248,8 +266,8 @@ input {
 		z-index: 1000;
 	}
 
-	#map-div, #refresh {
-		display: none;
+	#mapdiv {
+		/*display: none;*/
 	}
 
 }
