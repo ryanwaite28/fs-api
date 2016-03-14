@@ -59,24 +59,24 @@ $(document).ready(function(){
 
 	searchIcon.click(function(){
 
-		mapDiv.hide();
-		searchDiv.show();
-		wikiDiv.show();
-		imgDiv.show();
-		inputDiv.show();
-		refreshIcon.hide();
+		mapDiv.hide('fast');
+		searchDiv.show('fast');
+		wikiDiv.show('fast');
+		imgDiv.show('fast');
+		inputDiv.show('fast');
+		refreshIcon.hide('fast');
 
 
 	});
 
 	menuIcon.click(function(){
 
-		mapDiv.show();
-		searchDiv.hide();
-		wikiDiv.hide();
-		imgDiv.hide();
-		inputDiv.hide();
-		refreshIcon.show();
+		mapDiv.show('fast');
+		searchDiv.hide('fast');
+		wikiDiv.hide('fast');
+		imgDiv.hide('fast');
+		inputDiv.hide('fast');
+		refreshIcon.show('fast');
 
 	});
 
