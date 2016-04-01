@@ -54,7 +54,7 @@
 						<center><input title=" --- If markers don't return after emptying input, just press space. The markers will return" id="place-filter" ng-keyup="filterResults()" ng-model="filter" placeholder="Filter Results by Place Name"/></center>
 						<br>
 						<ul class="place-list">
-							<li title="Click Any List Item To Show Its Marker On the Map" class="fq-items" ng-repeat="place in places | filter: {placeName:filter}" ng-click="showMarker(this)">
+							<li title="Click Any List Item To Show Its Marker On the Map" class="fq-items" ng-repeat="place in places | filter: {placeName:filter} | orderBy: 'placeName'" ng-click="showMarker(this)">
 								<div>
 									<b><h4>{{place.placeName}}</h4></b>
 									<p>
