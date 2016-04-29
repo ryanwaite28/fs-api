@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 
-<html> 
+<html>
 	<head>
 		<title>FourSquare API</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="http://ryanwaite28.github.io/my-cdn/css/emerald.css"/>
 		<link rel="stylesheet" type="text/css" href="css/style-one.css"/>
 		<link rel="icon" type="image/png" href="http://hostore.com.br/wp-content/uploads/2015/07/HOSTORE%C2%AE-Google-Maps-Icon.png" size="20x20"/>
 		<script src="js/jQuery.js"></script>
@@ -13,16 +14,16 @@
 		<script src="js/script-one.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSHPWjouiZzdAI_EhWkuuLsFMEGTgyYWE&callback=initMap"async defer></script>
 	</head>
-	
+
 	<body ng-app="myApp" ng-controller="masterCtrl">
-	
+
 		<!--   -->
 		<div class="container-fluid blacky">
 
 			<a title="Search Icon - Click To Show Or Hide Search Box" href="#"><img id="search-icon" class="top-icon" src="http://i.imgur.com/huBw3xR.png"/></a>
 
 			<a title="Menu Icon - Click To Show Or Hide Results Box" href="#"><img id="menu-icon" class="top-icon" src="http://i.imgur.com/DqLbHOP.png"/></a>
-		
+
 			<div class="row whitey" style="border-bottom: 1px solid black; margin-bottom: 10px;">
 				<div class="col-md-12" style="border-bottom: 1px solid black;">
 					<h1 class="text-center header-text" onclick="sayHello()">FourSquare!</h1>
@@ -35,10 +36,10 @@
 								<form id="form"><center>
 									<input type="text" id="query" placeholder="Search Query">
 									<input type="text" id="query-city" placeholder="Search City">
-									
+
 									<input id="submit-btn" type="button" onclick="" value="Submit" ng-click="loadPlaces()">
 									<input id="question" type="button" onclick="fqAnswer()" value="?" ng-click="checkPlaces()">
-									
+
 									<span style="padding: 15px;" id="fq-text"></span>
 								</form>
 								</div>
@@ -48,7 +49,7 @@
 			<div class="row">
 
 				<div class="col-md-4" style="">
-					
+
 					<div id="search-div" class="whitey" style="border: 1px solid black;">
 						<h1 class="text-center" style="border-bottom: 1px solid black; padding-bottom: 5px;">Four Square Places</h1>
 						<center><input title=" --- If markers don't return after emptying input, just press space. The markers will return" id="place-filter" ng-keyup="filterResults()" ng-model="filter" placeholder="Filter Results by Place Name"/></center>
@@ -56,24 +57,26 @@
 						<ul class="place-list">
 							<li title="Click Any List Item To Show Its Marker On the Map" class="fq-items" ng-repeat="place in places | filter: {placeName:filter} | orderBy: 'placeName'" ng-click="showMarker(this)">
 								<div>
-									<b><h4>{{place.placeName}}</h4></b>
+									<b><h3>{{place.placeName}}</h3></b>
+									<img class="li-img" src="{{place.placeImg}}"/>
 									<p>
-										<span>{{place.placeAddress}}</span> 
-										<br> 
+										<span>{{place.placeAddress}}</span>
+										<br>
 										<span>{{place.placeCity}}</span>, <span>{{place.placeState}}</span>, <span>{{place.placeZip}}</span>
 										<br>
 										<span>{{place.placeCountry}}</span>
 										<p><span>Phone: {{place.placePhone}}</span></p>
-										<span>Status: {{place.placeStatus}}</span>, <span>Specials: {{place.placeSpecials}}</span>											
+										<span>Status: {{place.placeStatus}}</span>, <span>Specials: {{place.placeSpecials}}</span>
 									</p>
 								</div>
 							</li>
 						</ul>
 					</div><br>
-					
+
 					<div id="wiki-div" class="wikipedia-container border whitey" style="margin-bottom: 20px; border: 1px solid black;">
 						<h2 class="text-center" id="wikipedia-header" style="border-bottom: 1px solid black; padding-bottom: 5px;">Relevant Wikipedia Links</h2>
-						<center><a class="middlr text-center;" href="#"><img id="dropdown-icon" src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_down_48px-128.png"/></a></center>
+						<center><img class="transition" id="dropdown-icon" src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_down_48px-128.png"/></center>
+						<br>
 						<ul class="text-center" id="wikipedia-links">Type in a search query above and find relevant Wikipedia articles here!</ul>
 					</div>
 					<div id="img-div" class="whitey" style="padding:10px; border: 1px solid black;">
@@ -85,22 +88,23 @@
 				</div>
 
 				<div id="mapdiv" class="main-box col-md-8">
-					
+
 					<div class="whitey" style="padding10px; border: 1px solid black;">
-						<h2 style="border-bottom: 1px solid black; margin: 0; padding: 10px;" class="text-center">Google Maps</h2>
+						<h2 style="margin: 0; padding: 10px;" class="text-center">Google Maps</h2>
+						<p style="border-bottom: 1px solid black; margin: 0" class="text-center">{{q1}}{{q2}}</p>
 
 						<div id="map-div" class="map-div">
-							
+
 						</div>
 						<a title="Refresh Icon - Set Map Back To Main View" href="#"><img id="refresh" src="https://cdn3.iconfinder.com/data/icons/mobiactions/512/refresh_reload_arrow_sync-512.png"/></a>
 					</div>
 
 				</div>
-				
+
 			</div>
-		
+
 		</div>
-		
+
 	</body>
-	
+
 </html>

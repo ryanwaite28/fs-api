@@ -7,9 +7,9 @@ function initMap() {
 	scrollwheel: true,
 	zoom: 5
   });
-  
+
   var infowindow = new google.maps.InfoWindow();
-  
+
 }
 
 /* ---  --- */
@@ -19,22 +19,20 @@ $(document).ready(function(){
 	var searchIcon = $('#search-icon');
 	var menuIcon = $('#menu-icon');
 	var refreshIcon = $('#refresh');
-
 	var mapDiv = $('#mapdiv');
 	var searchDiv = $('#search-div');
 	var wikiDiv = $('#wiki-div');
 	var imgDiv = $('#img-div');
 	var inputDiv = $('#fq-search');
-	
 	var dropIcon = $('#dropdown-icon');
 	var wikiList = $('#wikipedia-links');
-	
+
 	$('#wikipedia-links').hide('fast');
-	
+
 	var wHidden = true;
-	
+
 	dropIcon.click(function(){
-		
+
 		if(wHidden == true) {
 			wikiList.show('fast');
 			dropIcon.toggleClass('rotate');
@@ -47,9 +45,9 @@ $(document).ready(function(){
 		}
 
 	});
-	
+
 	var cWidth = $(window).width();
-	
+
 	if(cWidth <= 992) {
 		setTimeout(function(){
 			mapDiv.hide();
@@ -58,26 +56,21 @@ $(document).ready(function(){
 
 
 	searchIcon.click(function(){
-
 		mapDiv.hide('fast');
 		searchDiv.show('fast');
 		wikiDiv.show('fast');
 		imgDiv.show('fast');
 		inputDiv.show('fast');
 		refreshIcon.hide('fast');
-
-
 	});
 
 	menuIcon.click(function(){
-
 		mapDiv.show('fast');
 		searchDiv.hide('fast');
 		wikiDiv.hide('fast');
 		imgDiv.hide('fast');
 		inputDiv.hide('fast');
 		refreshIcon.show('fast');
-
 	});
 
 	refreshIcon.click(function(){
@@ -103,18 +96,27 @@ $(document).ready(function(){
 
 // Main Angular Application
 var App = angular.module("myApp", []);
-  
+
 // Master Angular Controller
 App.controller('masterCtrl', function($scope) {
-	
+
+  $(document).keyup(function(e){
+
+    if( e.keyCode == 13 ) {
+      if( $('#query').is(':focus') || $('#query-city').is(':focus') ){
+        $scope.loadPlaces();
+      }
+    }
+  });
+
 	//	Loads FourSquare from user input
 	$scope.loadPlaces = function() {
-		
+
 		console.log("Load Places Clicked");
-		
+
 		var query = $('#query').val();
 		var City = $('#query-city').val();
-		
+
 		//Checking Inputs
 		if(query == '') {
 			alert('Query field is/was blank. Please input a search query.');
@@ -124,96 +126,76 @@ App.controller('masterCtrl', function($scope) {
 			alert('City field is/was left blank. Please input a valid location.');
 			return;
 		};
-		
+
+    $scope.q1 = query + ' in ';
+    $scope.q2 = City;
+
 		var streetViewUrl = 'http://maps.googleapis.com/maps/api/streetview?size=500x400&location=' + City + '';
 		$('#street-img').src = streetViewUrl;
 		$scope.imgURL = streetViewUrl;
-		
+
 		var apiURL = 'https://api.foursquare.com/v2/venues/search?client_id=N1IAMKZUIK1AUHKRFGFBKPQ2YKDSBAKS4NTER5SYZN5CROR1&client_secret=4MKLXVLU2FGZQVRMAEDC15P0TFJGSCY3ZUYUZ0KHQQQLQ5R3&v=20130815%20&limit=50&near=' + City + '&query=' + query + '';
 		console.log(apiURL);
-		
-		var infoWindow = new google.maps.InfoWindow();
-		
+
 		$scope.places = [];
-		
+
 		$.getJSON(apiURL, function(data) {
 			console.log(data);
-			
+
 			var venues = data.response.venues.length;
 
-			var infowindow = new google.maps.InfoWindow();
-			
 			//Refreshes Map
 			map = new google.maps.Map(document.getElementById('map-div'), {
 				center: {lat: data.response.venues[1].location.lat, lng: data.response.venues[1].location.lng},
 				scrollwheel: true,
-				zoom: 11
+				zoom: 9
 			});
-			
-			var address = data.response.venues[1].location.city + ', ' + data.response.venues[1].location.state;
-			
-			// Loops through JSON and saves data
-			for(var i = 0; i < venues; i++) {
-				
+
+		  // Loops through JSON and saves data
+			for ( var i = 0; i < venues; i++ ) {
+
 				var venue = data.response.venues[i];
-				
-				if (venue.location.address === undefined) continue;
 
-				var venueName = venue.name;
-				var venueID = venue.id;
-				var venueAddress = venue.location.address;
-				var venueCity = venue.location.city;
-				var venueState = venue.location.state;
-				var venueZip = venue.location.postalCode;
-				var venueCountry = venue.location.country;
-				var venuePhone = venue.contact.formattedPhone;
-				var venueLat = venue.location.lat;
-				var venueLng = venue.location.lng;
-				var venueImg = 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + venue.location.lat + ',' + venue.location.lng + '&heading=151.78&pitch=-0.76&key=AIzaSyBWq_bL3W2U17sffyrBJdzsxeFT445s9EU';
-				var venueStatus = venue.hereNow.summary;
-				var venueSpecials = venue.specials.count;
-				
-
-			
+				if (venue.location.address == undefined) {
+          continue;
+        }
 
 				//Adds places to array
 				$scope.places.push({
-					placeName: venueName,
-					placeID: venueID,
-					placeAddress: venueAddress,
-					placeCity: venueCity,
-					placeState: venueState,
-					placeZip: venueZip,
-					placeCountry: venueCountry,
-					placePhone: venuePhone,
-					placeLat: venueLat,
-					placeLng: venueLng,
-					placeImg: venueImg,
-					placeStatus: venueStatus,
-					placeSpecials: venueSpecials,
-				});
-			
-			};
-			
+					placeName: venue.name,
+					placeID: venue.id,
+					placeAddress: venue.location.address,
+					placeCity: venue.location.city,
+					placeState: venue.location.state,
+					placeZip: venue.location.postalCode,
+					placeCountry: venue.location.country,
+					placePhone:  venue.contact.formattedPhone,
+					placeLat: venue.location.lat,
+					placeLng: venue.location.lng,
+					placeImg: 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + venue.location.lat + ',' + venue.location.lng + '&heading=151.78&pitch=-0.76&key=AIzaSyBWq_bL3W2U17sffyrBJdzsxeFT445s9EU',
+					placeStatus: venue.hereNow.summary,
+					placeSpecials: venue.specials.count,
+				})
+
+			}
+
 			$scope.addMarker($scope.places);
-			
 			console.log('done push');
-			
 			$scope.$apply(function () {
 				console.log($scope.places);
-			});				
+			});
 
 		});
-		
+
 		var wikiURL = 'http://en.wikipedia.org/w/api.php?action=opensearch&search='
 		+ query + '&format=json&callback=wikiCallback';
-	
+
 		var wikiTimeout = setTimeout(function(){
 			$('#wikipedia-header').text("Failed To Load Wikipedia Resources");
 		}, 8000);
-		
+
 		$("#wikipedia-links").text("");
-		
+
 		$.ajax({
 			url : wikiURL,
 			dataType : "jsonp",
@@ -221,7 +203,7 @@ App.controller('masterCtrl', function($scope) {
 			success : function(response) {
 				console.log(response);
 				var articleList = response[1];
-			
+
 				for (var i = 0; i < articleList.length; i++) {
 					articleInfo = articleList[i];
 					var URL = 'http://en.wikipedia.org/wiki/' + articleInfo;
@@ -231,36 +213,29 @@ App.controller('masterCtrl', function($scope) {
 				};
 				clearTimeout(wikiTimeout);
 			}
-		
 		})
 
 		$('#dropdown-icon').show('fast');
-		
+    $('#query').val('');
+    $('#query-city').val('');
 	}
-	
-	$scope.mapMarkers = [];
-	
-	$scope.addMarker = function(array) {
-		
-		$.each(array, function(index, value) {
-			var infowindow = new google.maps.InfoWindow();
-			
-			var latitude = value.placeLat,
-				longitude = value.placeLng,
-				Loc = new google.maps.LatLng(latitude, longitude),
-				thisName = value.placeName;
-				
-			var ID = value.placeID;
 
-			var infoBox = '<div style="border: 1px solid black; padding: 10px;">' + '<h4>' + value.placeName + '</h4>' + '<p>' + value.placeAddress + '</p>' + '<p>' + value.placeCity + ', ' + value.placeState + ' ' + value.placeZip + '</p>' + '<p>' + value.placePhone + '</p>' + '<center>' + '<img class="info-img" src="' + value.placeImg + '"/>' + '</center>' +
-				'<br>' + '<center>' + '<p>Brought to you by, <i>FourSquare!</i></p>' + '<img class="icon-one" src="https://cdn0.iconfinder.com/data/icons/social-flat-rounded-rects/512/foursquare-32.png"/>' + '</center>' + '<br>' +
-				'<a href="\https://www.google.com/search?q=' + value.placeName + '&oq=' + value.placeName + '&aqs=chrome..69i57&sourceid=chrome&es_sm=122&ie=UTF-8">' + 
-				'<p class="text-center">' + 'Google Search' + '</p>' + '</a>' + '</div>';
+	$scope.mapMarkers = [];
+
+	$scope.addMarker = function(array) {
+
+		$.each(array, function(index, value) {
+
+			var infowindow = new google.maps.InfoWindow();
+
+			var infoBox = '<div style="border: 1px solid black; padding: 10px;">' + '<h4>' + value.placeName + '</h4>' + '<p>' + value.placeAddress + '</p>' + '<p>' + value.placeCity + ', ' + value.placeState + ' ' + value.placeZip + '</p>' +
+      '<p>' + value.placePhone + '</p>' + '<hr>' + '<center>' + '<img class="info-img" src="' + value.placeImg + '"/>' + '</center>' +
+			'<br>' + '<center>' + '</div>';
 
 			var marker = new google.maps.Marker({
-				position: Loc,
-				title: thisName,
-				id: ID,
+				position: new google.maps.LatLng(value.placeLat, value.placeLng),
+				title: value.placeName,
+				id: value.placeID,
 				animation: google.maps.Animation.DROP,
 				map: map
 			});
@@ -269,7 +244,7 @@ App.controller('masterCtrl', function($scope) {
 				console.log('Marker Animation');
 				if (marker.getAnimation() !== null) {
 					marker.setAnimation(null);
-				} 
+				}
 				else {
 					marker.setAnimation(google.maps.Animation.BOUNCE);
 				}
@@ -292,14 +267,12 @@ App.controller('masterCtrl', function($scope) {
 				map.panBy(0, -125);
 			});
 		});
-		
 	}
 
 	$scope.showMarker = function(string) {
+
 		console.log(string);
-		
 		var infowindow = new google.maps.InfoWindow();
-		
 		var clickedItem = string.place.placeID;
 
 		for (var key in $scope.mapMarkers) {
@@ -310,10 +283,9 @@ App.controller('masterCtrl', function($scope) {
 				infowindow.open(map, $scope.mapMarkers[key].marker);
 				map.panBy(0, 125);
 			}
-		}	
-
+		}
 	}
-	
+
 	$scope.filterResults = function() {
 
 		var input = $('#place-filter').val().toLowerCase();
@@ -324,42 +296,29 @@ App.controller('masterCtrl', function($scope) {
 				$scope.mapMarkers[index].marker.setMap(map);
 			})
 			return;
-		} else {
-
+		}
+    else {
 			for (var i = 0; i < list.length; i++) {
 				if (list[i].placeName.toLowerCase().indexOf(input) != -1) {
-
-						  $scope.mapMarkers[i].marker.setMap(map);
-
-				} 
+					$scope.mapMarkers[i].marker.setMap(map);
+				}
 				else {
-
-					   $scope.mapMarkers[i].marker.setMap(null);
-
-			   }
-
+					$scope.mapMarkers[i].marker.setMap(null);
+			  }
 			}
-
 		}
-
 	}
-	
-	
-	
+
 	$scope.showMessage = function() {
-		
 		console.log("MouseOver Working.");
-		
+
 		$('#fq-text').text('Click any list item to show its location on the map.');
-		setTimeout(function(){ 
+		setTimeout(function(){
 			$('#fq-text').text('');
 		}, 3000);
 	}
-
-	
-	
 });
- 
+
 function answer() {
 	alert("You can also search other Countries as well! Just put the city and then region/country! Also, you don't have to submit a street address. Submit a city and state (or other location in the world) to mark the map and get news about it, as well as a twitter feed!");
 }
@@ -367,11 +326,9 @@ function answer() {
 function fqAnswer() {
 	$('#fq-text').text('Please be normal with your search. \
 	You can click the list item to show it on the map');
-	
-	setTimeout(function(){ 
+	setTimeout(function(){
 		$('#fq-text').text('');
 	}, 5000);
-	
 }
 
 function webInfo() {
@@ -380,5 +337,5 @@ function webInfo() {
 		Google Maps, Google StreetView, and FourSquare! \
 		Search for a specific location, a category (Search literally anything, including brand names) and locations from four square! \
 		Please use proper words for your search. Have fun and enjoy!'
-	);	
+	);
 }
