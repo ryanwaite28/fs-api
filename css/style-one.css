@@ -4,11 +4,19 @@ body {
 }
 
 input {
-	margin-bottom: 5px;
+	-webkit-transition: transition 0.3s;
+  transition: 0.3s;
+  border: 1px solid black;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+	padding: 3px;
 }
 
-.info-img {
-
+.li-img {
+	width: 150px;
+	max-width: 95%;
+	height: 150px;
+	display: block;
+	margin: auto;
 }
 
 .text-center {
@@ -39,7 +47,7 @@ input {
 	margin: 0;
 	padding: 0;
 	text-align: center;
-	
+
 }
 
 .whitey {
@@ -97,7 +105,7 @@ input {
 }
 
 .place-list::-webkit-scrollbar {
-	
+
 }
 
 .fq-items, .food-items {
@@ -145,12 +153,12 @@ input {
 }
 
 .main-box {
-	
+
 }
 
 #map-div {
 	width: 100%;
-	height: 80vh;
+	height: 72vh;
 }
 #mapdiv {
 	position: relative;
@@ -166,7 +174,7 @@ input {
 
 .nytimes-container {
 	padding: 0 10px 0 10px;
-	
+
 }
 
 #nytimes-header {
@@ -178,12 +186,12 @@ input {
 }
 
 .news-list {
-	
+
 }
 
 .article-list {
     margin: 0;
-    padding: 0;	
+    padding: 0;
 	white-space: wrap;
 }
 
@@ -233,6 +241,7 @@ input {
 	display: block;
 	margin: auto;
 	display: none;
+	border-radius: 30px;
 }
 #dropdown-icon:hover {
 	background-color: grey;
