@@ -8,7 +8,7 @@ function initMap() {
 	zoom: 5
   });
 
-  var infowindow = new google.maps.InfoWindow();
+  window.infowindow = new google.maps.InfoWindow();
 
 }
 
@@ -226,7 +226,7 @@ App.controller('masterCtrl', function($scope) {
 
 		$.each(array, function(index, value) {
 
-			var infowindow = new google.maps.InfoWindow();
+			// var infowindow = new google.maps.InfoWindow();
 
 			var infoBox = '<div style="border: 1px solid black; padding: 10px;">' + '<h4>' + value.placeName + '</h4>' + '<p>' + value.placeAddress + '</p>' + '<p>' + value.placeCity + ', ' + value.placeState + ' ' + value.placeZip + '</p>' +
       '<p>' + value.placePhone + '</p>' + '<hr>' + '<center>' + '<img class="info-img" src="' + value.placeImg + '"/>' + '</center>' +
@@ -272,7 +272,7 @@ App.controller('masterCtrl', function($scope) {
 	$scope.showMarker = function(string) {
 
 		console.log(string);
-		var infowindow = new google.maps.InfoWindow();
+		// var infowindow = new google.maps.InfoWindow();
 		var clickedItem = string.place.placeID;
 
 		for (var key in $scope.mapMarkers) {
