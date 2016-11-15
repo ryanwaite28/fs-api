@@ -3,6 +3,10 @@ body {
 	margin: auto;
 }
 
+hr {
+	border-color: grey;
+}
+
 input {
 	-webkit-transition: transition 0.3s;
   transition: 0.3s;
@@ -81,13 +85,11 @@ input {
 .place-list {
 	margin-top: 0px;
 	margin-bottom: 5px;
-    padding: 5px;
-    height: 65vh;
-    width: 95%;
-    display: block;
-    margin: auto;
-    overflow-y: scroll;
-    border: 1px solid black;
+  padding: 5px;
+  min-height: 50vh;
+  width: 95%;
+  display: block;
+  margin: auto;
 }
 
 #refresh {
@@ -132,15 +134,12 @@ input {
 
 #wikipedia-links li {
 	background-color: #bfbfbf;
-    margin-bottom: 5px;
-    padding: 5px;
-    width: 95%;
-    display: block;
-    margin: auto;
-    margin-bottom: 5px;
-    text-align: center;
-	-webkit-transition: opacity 0.3s;
-	transition: opacity 0.3s;
+  padding: 5px;
+  width: 95%;
+  display: block;
+  margin: auto;
+	margin-bottom: 5px;
+
 }
 
 #wikipedia-links li:hover {
@@ -152,13 +151,168 @@ input {
 	border: 1px solid black;
 }
 
-.main-box {
+#topbar {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 60px;
+	background: black;
+	z-index: 1000;
+	box-shadow: 2px 4px 7px grey;
+}
+#top-text {
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	margin: 0px;
+	height: 60px;
+	line-height: 60px;
+	vertical-align: middle;
+}
+
+#sidebar {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 0px;
+	max-width: 100%;
+	height: 100vh;
+	background: #fbfbfb;
+	border-right: 2px solid black;
+	z-index: 100;
+	box-shadow: 2px 4px 7px grey;
+	overflow-y: scroll;
+	/*white-space: nowrap;*/
+	vertical-align: middle;
+	display: inline-block;
+
+	-webkit-transition: width 0.3s ease;
+	-moz-transition: width 0.3s ease;
+	-o-transition: width 0.3s ease;
+	transition: width 0.3s ease;
+}
+#sidebar::-webkit-scrollbar {
+	display: none;
+}
+
+/*#sidebar {
+    -webkit-transition: width 2s ease;
+    -moz-transition: width 2s ease;
+    -o-transition: width 2s ease;
+    transition: width 2s ease;
+
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    background: yellow;
+    vertical-align: middle;
+    line-height: 30px;
+    height: 30px;
+
+    width: 0px;
+}*/
+
+#sidebar.in {
+	width: 325px;
+}
+
+.collapse.width {
+    height: auto;
+    -webkit-transition: width 0.35s ease;
+    -moz-transition: width 0.35s ease;
+    -o-transition: width 0.35s ease;
+    transition: width 0.35s ease;
+}
+
+.collapse {
+  height: auto;
+  width: auto;
+}
+
+.collapse.height {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: height 0.35s ease;
+  -moz-transition: height 0.35s ease;
+  -o-transition: height 0.35s ease;
+  transition: height 0.35s ease;
+}
+
+/*.collapse.width {
+  position: relative;
+  width: 0;
+  overflow: hidden;
+  -webkit-transition: width 0.35s ease;
+  -moz-transition: width 0.35s ease;
+  -o-transition: width 0.35s ease;
+  transition: width 0.35s ease;
+}*/
+
+.collapse.in.width {
+  width: auto;
+}
+
+.collapse.in.height {
+  height: auto;
+}
+
+#sb-cont {
+	position: relative;
+	width: 100%;
+	height: 60px;
+}
+/*#sb-inner {
+	position: fixed;
+	border-bottom: 2px solid black;
+	background: #fbfbfb;
+	width: 323px;
+	height: 60px;
+	max-width: 100%;
+}*/
+
+#bta-c {
 
 }
 
+.concealed {
+	visibility: hidden;
+	opacity: 0.0;
+}
+
+#chevron {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	font-size: 30px;
+	color: white;
+	z-index: 1000;
+	cursor: pointer;
+}
+#chevron:hover {
+	color: grey;
+}
+
+#bta {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	font-size: 30px;
+	color: white;
+	z-index: 1000;
+	cursor: pointer;
+}
+#bta:hover {
+	color: grey;
+}
+
 #map-div {
+	position: absolute;
 	width: 100%;
-	height: 72vh;
+	height: calc(100vh - 60px);
+	bottom: 0px;
+	left: 0px;
 }
 #mapdiv {
 	position: relative;

@@ -26,8 +26,42 @@ $(document).ready(function(){
 	var inputDiv = $('#fq-search');
 	var dropIcon = $('#dropdown-icon');
 	var wikiList = $('#wikipedia-links');
+  var chevron = $('#chevron');
+  var bta = $('#bta');
+  var sidebar = $('#sidebar');
+  var wikiList = $('#wikipedia-links');
 
-	$('#wikipedia-links').hide('fast');
+  bta.click(function(){
+    sidebar.animate({
+      scrollTop: 0 // $("#sdl").offset().top
+    }, 1000);
+  });
+
+  sidebar.scroll(function() {
+    var top = $(this).scrollTop();
+    if( top > 10 ) {
+      bta.addClass('rotate');
+    }
+    else {
+      bta.removeClass('rotate');
+    }
+  });
+
+  $("[data-toggle='toggle']").click(function() {
+    var selector = $(this).data("target");
+    $(selector).toggleClass('in');
+  });
+
+  chevron.click(function(){
+    bta.toggleClass('concealed');
+    $(this).toggleClass('rotate');
+  });
+
+  setTimeout(function(){
+    sidebar.toggleClass('in');
+    bta.toggleClass('concealed');
+    chevron.toggleClass('rotate');
+  } , 2000);
 
 	var wHidden = true;
 
@@ -53,7 +87,6 @@ $(document).ready(function(){
 			mapDiv.hide();
 		},500);
 	}
-
 
 	searchIcon.click(function(){
 		mapDiv.hide('fast');
@@ -99,6 +132,8 @@ var App = angular.module("myApp", []);
 
 // Master Angular Controller
 App.controller('masterCtrl', function($scope) {
+
+  window.scope = $scope;
 
   $(document).keyup(function(e){
 
@@ -191,27 +226,31 @@ App.controller('masterCtrl', function($scope) {
 		+ query + '&format=json&callback=wikiCallback';
 
 		var wikiTimeout = setTimeout(function(){
-			$('#wikipedia-header').text("Failed To Load Wikipedia Resources");
+			alert("Failed To Load Wikipedia Resources");
 		}, 8000);
 
-		$("#wikipedia-links").text("");
+    $scope.wikiList = [];
 
 		$.ajax({
 			url : wikiURL,
 			dataType : "jsonp",
 			// callback,
 			success : function(response) {
-				console.log(response);
-				var articleList = response[1];
+				(function(){
+          console.log(response);
 
-				for (var i = 0; i < articleList.length; i++) {
-					articleInfo = articleList[i];
-					var URL = 'http://en.wikipedia.org/wiki/' + articleInfo;
-					$('#wikipedia-links').append(
-					'<li><a href="' + URL + '">' + articleInfo + '</a></li>'
-					);
-				};
-				clearTimeout(wikiTimeout);
+          for( var key in response[1] ) {
+            $scope.wikiList.push({
+              title: response[1][key],
+              link: response[3][key]
+            });
+          }
+
+  				clearTimeout(wikiTimeout);
+          $scope.$apply(function(){
+            console.log($scope.wikiList);
+          });
+        })()
 			}
 		})
 
@@ -324,11 +363,11 @@ function answer() {
 }
 
 function fqAnswer() {
-	$('#fq-text').text('Please be normal with your search. \
+	alert('Please be normal with your search. \
 	You can click the list item to show it on the map');
-	setTimeout(function(){
-		$('#fq-text').text('');
-	}, 5000);
+	// setTimeout(function(){
+	// 	$('#fq-text').text('');
+	// }, 5000);
 }
 
 function webInfo() {
