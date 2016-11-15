@@ -7,18 +7,105 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 		<link rel="stylesheet" type="text/css" href="http://ryanwaite28.github.io/my-cdn/css/emerald.css"/>
+		<link rel="stylesheet" type="text/css" href="http://ryanwaite28.github.io/my-cdn/css/font-awesome.css"/>
 		<link rel="stylesheet" type="text/css" href="css/style-one.css"/>
 		<link rel="icon" type="image/png" href="http://hostore.com.br/wp-content/uploads/2015/07/HOSTORE%C2%AE-Google-Maps-Icon.png" size="20x20"/>
 		<script src="js/jQuery.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="http://ryanwaite28.github.io/my-cdn/js/bootstrap.js"></script>
 		<script src="js/script-one.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSHPWjouiZzdAI_EhWkuuLsFMEGTgyYWE&callback=initMap"async defer></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSHPWjouiZzdAI_EhWkuuLsFMEGTgyYWE&callback=initMap" async defer></script>
 	</head>
 
 	<body ng-app="myApp" ng-controller="masterCtrl">
 
+		<!-- Top Bar -->
+		<div class="transition" id="topbar">
+			<h2 id="top-text">Search Master</h2>
+			<i data-toggle="toggle" data-target="#sidebar" title="Show/Hide Side Bar" id="chevron" class="transition fa fa-chevron-circle-right" aria-hidden="true"></i>
+			<i title="Scroll To Top" id="bta" class="concealed transition fa fa-chevron-circle-down" aria-hidden="true"></i>
+		</div>
+
+		<!-- Side Bar -->
+		<div class="transition collapse width" id="sidebar">
+			<div id="sb-cont">
+				<div id="sb-inner">
+
+				</div>
+			</div>
+
+			<hr>
+
+			<h3 class="text-center"><b>Info</b></h3>
+			<p class="text-center">Searcg For Places Using <br>FourSquare And Google Maps!</p>
+			<br>
+
+			<p class="text-center">
+				FourSquare<br>
+				Google Maps<br>
+			</p>
+			<p class="text-center">Powered By. - Angular JS</p>
+
+			<hr>
+
+			<h3 class="text-center"><b>Search Places</b></h3>
+			<form id="form">
+				<input class="middlr" type="text" id="query" placeholder="Search Query"><br>
+				<input class="middlr" type="text" id="query-city" placeholder="Search City"><br>
+				<div class="text-center">
+					<input id="submit-btn" type="button" onclick="" value="Submit" ng-click="loadPlaces()">
+					<input id="question" type="button" onclick="fqAnswer()" value="?" ng-click="checkPlaces()">
+				</div>
+				<span style="padding: 15px;" id="fq-text"></span>
+			</form>
+
+			<hr>
+
+			<h3 class="text-center"><b>Street View</b></h3>
+			<img style="padding: 10px;" alt="Google Image" id="street-img" class="middlr street-img" src={{imgURL}}/>
+
+			<hr>
+
+			<h3 class="text-center"><b>Wiki Info</b></h3>
+			<br>
+			<ul class="text-center" id="wikipedia-links">
+				<li ng-repeat="w in wikiList">
+					<p><a title="{{ w.title }}" href="{{ w.link }}">{{ w.title }}</a></p>
+				</li>
+			</ul>
+
+			<hr>
+
+			<h3 class="text-center"><b>Query Results</b></h3>
+			<br>
+			<ul class="place-list">
+				<li title="Click Any List Item To Show Its Marker On the Map" class="fq-items" ng-repeat="place in places | filter: {placeName:filter} | orderBy: 'placeName'" ng-click="showMarker(this)">
+					<div>
+						<b><h3>{{place.placeName}}</h3></b>
+						<img class="li-img" src="{{place.placeImg}}"/>
+						<p>
+							<span>{{place.placeAddress}}</span>
+							<br>
+							<span>{{place.placeCity}}</span>, <span>{{place.placeState}}</span>, <span>{{place.placeZip}}</span>
+							<br>
+							<span>{{place.placeCountry}}</span>
+							<p><span>Phone: {{place.placePhone}}</span></p>
+							<span>Status: {{place.placeStatus}}</span>, <span>Specials: {{place.placeSpecials}}</span>
+						</p>
+					</div>
+				</li>
+			</ul>
+
+			<hr>
+		</div>
+
+		<!-- Map Container -->
+		<div id="map-div">
+
+		</div>
+
 		<!--   -->
-		<div class="container-fluid blacky">
+		<!-- <div class="container-fluid blacky">
 
 			<a title="Search Icon - Click To Show Or Hide Search Box" href="#"><img id="search-icon" class="top-icon" src="http://i.imgur.com/huBw3xR.png"/></a>
 
@@ -103,7 +190,7 @@
 
 			</div>
 
-		</div>
+		</div> -->
 
 	</body>
 
