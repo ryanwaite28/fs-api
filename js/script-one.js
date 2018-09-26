@@ -207,7 +207,7 @@ App.controller('masterCtrl', function($scope) {
 					placePhone:  venue.contact.formattedPhone,
 					placeLat: venue.location.lat,
 					placeLng: venue.location.lng,
-					placeImg: 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + venue.location.lat + ',' + venue.location.lng + '&heading=151.78&pitch=-0.76&key=AIzaSyBWq_bL3W2U17sffyrBJdzsxeFT445s9EU',
+					placeImg: 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + venue.location.lat + ',' + venue.location.lng + '&heading=151.78&pitch=-0.76&key=AIzaSyB6N63ZIGH4b8Hgm9KhodA87Guuiem3C8Y',
 					placeStatus: venue.hereNow.summary,
 					placeSpecials: venue.specials.count,
 				})
